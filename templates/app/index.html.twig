@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AppController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    <div class="content">
+        <h1>Nos concerts a venir :  ✅</h1>
+
+        <div class="grille">
+            {% for concert in concerts %}
+                <div class="card">
+                    <div class="row">
+                        <div class="col-4">
+                            <img class="image" src="/concertProject/public/images/index.jpeg">
+                        </div>
+                        <div class="col-8 nom">
+                            <a href="{{path('concert_show', {id : concert.id })}}">{{concert.name}}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

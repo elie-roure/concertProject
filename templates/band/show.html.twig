@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BandController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+    <div class="row">
+
+        <div class="col-2">
+            <ul class="nav flex-column sidebar">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('band_update', {id : band.id })}}">Modifier</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{path('band_delete', {id : band.id })}}">
+                        Supprimer
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-8">
+            <div class="content">
+                <h1>{{band.getName()}}</h1>
+                <p>Les personnes qui compose le groupe sont :</p>
+                <div class="grille">
+                    {% for artist in band.artists %}
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img class="image" src="/concertProject/public/images/index.jpeg">
+                                </div>
+                                <div class="col-8 nom">
+                                    <a href="{{path('artist_show', {id : artist.id })}}">{{artist.name}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <p>Les concerts future du groupe groupe sont :</p>
+                <div class="grille">
+                    {% for concert in band.concerts %}
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img class="image" src="/concertProject/public/images/index.jpeg">
+                                </div>
+                                <div class="col-8 nom">
+                                    <a href="{{path('concert_show', {id : concert.id })}}">{{concert.name}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <p>Les concerts passé du groupe groupe sont :</p>
+                <div class="grille">
+                    {% for concert in band.concerts %}
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-4">
+                                    <img class="image" src="/concertProject/public/images/index.jpeg">
+                                </div>
+                                <div class="col-8 nom">
+                                    <a href="{{path('concert_show', {id : concert.id })}}">{{concert.name}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+
+        </div>
+
+    </div>
+{% endblock %}
