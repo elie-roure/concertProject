@@ -23,12 +23,6 @@ class ArtistType extends AbstractType
             ->add('scene_name', TextType::class,[
                 "label"=> "Nom de scene de l'artiste : "
             ])
-            ->add('bands', EntityType::class, [
-                "class" => Band::class,
-                "multiple" => true,
-                "choice_label" => 'name',
-                "label" => "Groupes : "
-            ])
             ->add('picture', EntityType::class,[
                 "class" => Picture::class,
                 "label" => "Img : ",

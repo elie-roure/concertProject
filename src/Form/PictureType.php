@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Picture;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,18 +22,24 @@ class PictureType extends AbstractType
                 "label"=> "Nom de l'image : "
             ])
             ->add('url', FileType::class,[
-                "label"=> "Upload de l'image : ",
+                "label"=> "Upload de l'image : ",/*
                 "required" => true,
                 'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'application/pdf',
-                            'application/x-pdf',
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                    new Image([
+                        'maxSize' => '5000k',
+                        'mimeTypesMessage' => 'Please upload a valid Iamge document',
                     ])
-                ],
+                ],*/
+            ])
+            ->add('updated_at', DateType::class,[
+                "label"=> "Upload de l'image : ",/*
+                "required" => true,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '5000k',
+                        'mimeTypesMessage' => 'Please upload a valid Iamge document',
+                    ])
+                ],*/
             ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'save'],

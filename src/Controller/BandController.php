@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Band;
+use App\Entity\Concert;
+use App\Form\BandType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,6 +50,8 @@ class BandController extends AbstractController
         return $this->render('band/show.html.twig', [
             'controller_name' => 'BandController',
             'band' => $registry->getRepository(Band::class)->find($id),
+            'futureConcerts' => $registry->getRepository(Concert::class)->findFutureWithId($id),
+            'pastConcerts' => $registry->getRepository(Concert::class)->findFutureWithId($id),
         ]);
     }
 

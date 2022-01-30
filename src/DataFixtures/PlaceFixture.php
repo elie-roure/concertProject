@@ -11,31 +11,22 @@ class PlaceFixture extends Fixture /*implements DependentFixtureInterface*/
 {
     public const PLACE_REFERENCE = "place_";
 
+    public const ville = ["Ales", "Karez", "Aix Les Bains", "Vertheuil", "Arc 1800"];
+    public const nom = ["Parc Expo", "Champs", "Lac", "Domaine de Nodris", "Le Charvet"];
+
     public function load(ObjectManager $manager): void
     {
         // $product = new Product();
         // $manager->persist($product);
+        for ($i=0; $i < 5; $i++) {
+            $place = new Place();
+            $place->setName(self::nom[$i]);
+            $place->setAddress(self::ville[$i]);
+            $place->setMaxCapacity(rand(1000,5000));
+            $this->addReference(self::PLACE_REFERENCE . $i, $place);
 
-        $place = new Place();
-        $place->setName("Zenith");
-        $place->setMaxCapacity(2500);
-        $place->setAddress("Montpellier");
-        //$place->addVenue($this->getReference(VenueFixture::VENUE_REFERENCE . "SalleA"));
-        //$place->addVenue($this->getReference(VenueFixture::VENUE_REFERENCE . "SalleB"));
-        $this->addReference(self::PLACE_REFERENCE . "Zenith", $place);
-
-
-
-        $manager->persist($place);
-
-        $place2 = new Place();
-        $place2->setName("Arena");
-        $place2->setMaxCapacity(5000);
-        $place2->setAddress("Montpellier");
-        //$place2->addVenue($this->getReference(VenueFixture::VENUE_REFERENCE . "SalleC"));
-        $this->addReference(self::PLACE_REFERENCE . "Arena", $place2);
-
-        $manager->persist($place2);
+            $manager->persist($place);
+        }
 
         $manager->flush();
     }

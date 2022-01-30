@@ -9,7 +9,7 @@
 </style>
 
 <div class="content">
-    <h1>Nos artistes :  ✅</h1>
+    <h1>Nos artistes :  ✅ <a href="{{path('artist_create')}}">Ajouter</a></h1>
 
     <div class="grille">
         {% for artist in artists %}
@@ -17,6 +17,12 @@
                 <div class="row">
                     <div class="col-4">
                         <img class="image" src="/concertProject/public/images/index.jpeg">
+                        {% if artist.picture != null %}
+                            <p>Our website is in maintenance mode. Please, come back later.</p>
+
+                            {{  artist.picture.getUrl()}}
+                            <img src="{{  artist.picture.getUrl()}}">
+                        {% endif %}
                     </div>
                     <div class="col-8 nom">
                         <a href="{{path('artist_show', {id : artist.id })}}">{{artist.name}}</a>

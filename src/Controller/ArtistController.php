@@ -13,15 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArtistController extends AbstractController
 {
     /**
-     * @Route("/artist", name="artist")
-     */
-    public function index(): Response
-    {
-        return $this->render('artist/index.html.twig', [
-            'controller_name' => 'ArtistController',
-        ]);
-    }
-    /**
      * @Route("/artists", name="artist_list")
      */
     public function list(ManagerRegistry $registry): Response

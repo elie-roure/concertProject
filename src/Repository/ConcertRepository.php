@@ -31,6 +31,34 @@ class ConcertRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findFutureWithId($value){
+        $test= $this->createQueryBuilder('c')
+            ->andWhere('c.date > :val')
+            ->andWhere('band_id = :id')
+            ->setParameter('val', date("Y-m-d H:i:s"))
+            ->setParameter('id', $value)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery();
+        dump($test);
+            die;
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.date > :val')
+            ->andWhere('band_id = :id')
+            ->setParameter('val', date("Y-m-d H:i:s"))
+            ->setParameter('id', $value)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findPastWithId($value){
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.date < :val AND band_id = :id')
+            ->setParameter('id', $value)
+            ->setParameter('val', date("Y-m-d H:i:s"))
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
     // /**
     //  * @return Concert[] Returns an array of Concert objects

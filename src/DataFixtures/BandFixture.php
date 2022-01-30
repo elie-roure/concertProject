@@ -10,7 +10,7 @@ use Doctrine\Persistence\ObjectManager;
 class BandFixture extends Fixture implements DependentFixtureInterface
 {
     public const nom = ["Poulet", "Hyppocampe", "Vache", "Tigre", "AyeAye", "Chouette"];
-    public const adj = ["Furieux", "Nocturne", "Sacré", "Demoniaque", "Terrible", "Farfelue"];
+    public const adj = ["Furieux", "Fou", "Sacré", "Demoniaque", "Terrible", "Farfelue"];
     public const style = ["Rap", "Rock", "Pop", "Slam", "Metal", "Reggae"];
     public const BAND_REFERENCE = "band_";
 

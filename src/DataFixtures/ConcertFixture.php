@@ -9,26 +9,30 @@ use Doctrine\Persistence\ObjectManager;
 
 class ConcertFixture extends Fixture implements DependentFixtureInterface
 {
+    public const festival = ["Meuh Folle", "Vieille Charrue", "Musilac", "Sun Ska", "Ventilo'Fest"];
+    public const Date = ["Meuh Folle", "Vieille Charrue", "Musilac", "Sun Ska", "Ventilo'Fest"];
+
     public function load(ObjectManager $manager): void
     {
         // $product = new Product();
         // $manager->persist($product);
-        $concert = new Concert();
-        $concert->setName("Concert1");
-        $concert->setDate(\DateTime::createFromFormat("d/m/Y", "23/10/2022"));
-        $concert->setCapacity(500);
-        $concert->addBand($this->getReference(BandFixture::BAND_REFERENCE . "1"));
-        $concert->addBand($this->getReference(BandFixture::BAND_REFERENCE . "2"));
-        $concert->setVenue($this->getReference(VenueFixture::VENUE_REFERENCE . "SalleA"));
-        $manager->persist($concert);
+        for ($i=0; $i < 15; $i++) {
+            $concert = new Concert();
+            $name = self::festival[rand(0,4)];
+            $concert->setName($name);
+            $date = rand(1,31) ."/". rand(1,12) . "/" .rand(2018,2025);
+            $concert->setDate(\DateTime::createFromFormat("d/m/Y", $date));
+            $concert->setCapacity(rand(1000,5000));
 
-        $concert2 = new Concert();
-        $concert2->setName("Concert2");
-        $concert2->setDate(\DateTime::createFromFormat("d/m/Y", "23/10/2022"));
-        $concert2->addBand($this->getReference(BandFixture::BAND_REFERENCE . "3"));
-        $concert2->setVenue($this->getReference(VenueFixture::VENUE_REFERENCE . "SalleC"));
-        $concert2->setCapacity(500);
-        $manager->persist($concert2);
+            for ($j=0; $j < rand(1,5); $j++) {
+                $concert->addBand($this->getReference(BandFixture::BAND_REFERENCE . rand(0,9)));
+            }
+
+
+            $concert->setVenue($this->getReference(VenueFixture::VENUE_REFERENCE .  rand(0,5)));
+
+            $manager->persist($concert);
+        }
 
         $manager->flush();
     }
