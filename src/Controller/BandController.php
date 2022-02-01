@@ -51,7 +51,7 @@ class BandController extends AbstractController
             'controller_name' => 'BandController',
             'band' => $registry->getRepository(Band::class)->find($id),
             'futureConcerts' => $registry->getRepository(Concert::class)->findFutureWithId($id),
-            'pastConcerts' => $registry->getRepository(Concert::class)->findFutureWithId($id),
+            'pastConcerts' => $registry->getRepository(Concert::class)->findPastWithId($id),
         ]);
     }
 

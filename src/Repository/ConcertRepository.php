@@ -32,18 +32,21 @@ class ConcertRepository extends ServiceEntityRepository
             ->getResult();
     }
     public function findFutureWithId($value){
-        $test= $this->createQueryBuilder('c')
+/*
+        dump($this->createQueryBuilder('c')
+            ->join("App\Entity\Band ","b", "on c.id = b.concert_id")
             ->andWhere('c.date > :val')
-            ->andWhere('band_id = :id')
+            ->andWhere('b.band_id = :id')
             ->setParameter('val', date("Y-m-d H:i:s"))
             ->setParameter('id', $value)
             ->orderBy('c.id', 'ASC')
-            ->getQuery();
-        dump($test);
-            die;
+            ->getQuery());
+        die();*/
+
         return $this->createQueryBuilder('c')
+            ->join("App\Entity\Band ","b", "c.id = b.concert_id")
             ->andWhere('c.date > :val')
-            ->andWhere('band_id = :id')
+            ->andWhere('b.id = :id')
             ->setParameter('val', date("Y-m-d H:i:s"))
             ->setParameter('id', $value)
             ->orderBy('c.id', 'ASC')
@@ -52,7 +55,9 @@ class ConcertRepository extends ServiceEntityRepository
     }
     public function findPastWithId($value){
         return $this->createQueryBuilder('c')
-            ->andWhere('c.date < :val AND band_id = :id')
+            ->join("App\Entity\Band ","b", "on c.id = b.concert_id")
+            ->andWhere('c.date < :val')
+            ->andWhere('b.id = :id')
             ->setParameter('id', $value)
             ->setParameter('val', date("Y-m-d H:i:s"))
             ->orderBy('c.id', 'ASC')
