@@ -37,7 +37,32 @@
 		</div>
 		<div class="col-8">
 			<div class="content">
-				<h1>{{concert.getName()}}</h1>
+				<div class="row">
+						<h1>{{concert.getName()}}</h1>
+				</div>
+				<div class="info">
+					<div class="row">
+						<div class="col-4">
+							<div class="row">
+								<p>{{concert.venue.place.address}} : {{concert.venue.place.name}}</p>
+							</div>
+							<div class="row">
+								<p>Salle : {{concert.venue.name}}</p>
+							</div>
+						</div>
+						<div class="col-3">
+						</div>
+						<div class="col-3">
+							<div class="row">
+								<p>Date : {{concert.date|date("m/d/Y")}}</p>
+							</div>
+							<div class="row">
+								<p>Place disponible : {{concert.capacity}}</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
 
 				<p>Les groupes present :</p>
 				<div class="grille">
@@ -61,5 +86,16 @@
 		</div>
 
 	</div>
+
+	<style>
+		.info{
+			background-color: #f5f5f5;
+			width: auto;
+			border-radius: 25px;
+		}
+		.info div{
+			margin: 5px;
+		}
+	</style>
 {% endblock %}
 

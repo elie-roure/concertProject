@@ -30,6 +30,7 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): Passport
     {
+
         $email = $request->request->get('email', '');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
@@ -43,6 +44,7 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
@@ -51,7 +53,6 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
         // For example:
         return new RedirectResponse($this->urlGenerator->generate('band_list'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl(Request $request): string

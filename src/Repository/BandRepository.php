@@ -19,6 +19,30 @@ class BandRepository extends ServiceEntityRepository
         parent::__construct($registry, Band::class);
     }
 
+    public function findFutureWithId($value){
+
+        /*dump($this->createQueryBuilder('c')
+            ->join("App\Entity\Band ","b", "on c.id = b.concert_id")
+            ->andWhere('c.date > :val')
+            ->andWhere('b.band_id = :id')
+            ->setParameter('val', date("Y-m-d H:i:s"))
+            ->setParameter('id', $value)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery());
+        die();*/
+
+        return $this->createQueryBuilder('c')
+            ->select("App\Entity\Concert")
+            ->from("App\Entity\Concert", "co")
+            ->join("App\Entity\Band ","b", "co.id = b.concert_id")
+            /*->andWhere('c.date > :val')*/
+            ->andWhere('b.id = :id')
+            /*->setParameter('val', date("Y-m-d H:i:s"))*/
+            ->setParameter('id', $value)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return Band[] Returns an array of Band objects
     //  */

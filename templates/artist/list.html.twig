@@ -16,7 +16,14 @@
             <div class="card">
                 <div class="row">
                     <div class="col-4">
-                        <img class="image" src="/concertProject/public/images/index.jpeg">
+
+                        {% if artist.picture is null %}
+                            <img class="image" src="/concertProject/public/images/index.jpeg">
+                        {% endif %}
+                        {% if artist.picture is not null %}
+                            <img class="image" src="{{ artist.picture.url }}">
+                        {% endif %}
+
                         {% if artist.picture != null %}
                             <p>Our website is in maintenance mode. Please, come back later.</p>
 

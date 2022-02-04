@@ -28,6 +28,10 @@ class ArtistType extends AbstractType
                 "label" => "Img : ",
                 "choice_label" => 'name'
             ])
+            ->add('picture', EntityType::class, [
+                "class" => Picture::class,
+                "choice_label" => 'name'
+            ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'save'],
                 "label" => 'Enregister l\'artiste'

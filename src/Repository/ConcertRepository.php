@@ -32,8 +32,8 @@ class ConcertRepository extends ServiceEntityRepository
             ->getResult();
     }
     public function findFutureWithId($value){
-/*
-        dump($this->createQueryBuilder('c')
+
+        /*dump($this->createQueryBuilder('c')
             ->join("App\Entity\Band ","b", "on c.id = b.concert_id")
             ->andWhere('c.date > :val')
             ->andWhere('b.band_id = :id')
@@ -43,7 +43,19 @@ class ConcertRepository extends ServiceEntityRepository
             ->getQuery());
         die();*/
 
-        return $this->createQueryBuilder('c')
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT * FROM concert c join concert_band cb on c.id = cb.concert_id
+            WHERE band_id = :id and c.date > :date
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id' => $value, 'date' => date("Y-m-d H:i:s") ]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+
+        /*return $this->createQueryBuilder('c')
             ->join("App\Entity\Band ","b", "c.id = b.concert_id")
             ->andWhere('c.date > :val')
             ->andWhere('b.id = :id')
@@ -51,18 +63,20 @@ class ConcertRepository extends ServiceEntityRepository
             ->setParameter('id', $value)
             ->orderBy('c.id', 'ASC')
             ->getQuery()
-            ->getResult();
+            ->getResult();*/
     }
     public function findPastWithId($value){
-        return $this->createQueryBuilder('c')
-            ->join("App\Entity\Band ","b", "on c.id = b.concert_id")
-            ->andWhere('c.date < :val')
-            ->andWhere('b.id = :id')
-            ->setParameter('id', $value)
-            ->setParameter('val', date("Y-m-d H:i:s"))
-            ->orderBy('c.id', 'ASC')
-            ->getQuery()
-            ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT * FROM concert c join concert_band cb on c.id = cb.concert_id
+            WHERE band_id = :id and c.date < :date
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['id' => $value, 'date' => date("Y-m-d H:i:s") ]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
     }
 
     // /**

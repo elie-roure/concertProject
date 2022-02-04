@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Band;
 use App\Entity\Concert;
+use App\Entity\Picture;
 use App\Entity\Venue;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -26,6 +27,10 @@ class ConcertType extends AbstractType
             ])
             ->add('name', TextType::class,[
                 "label"=> "Nom du concert : "
+            ])
+            ->add('picture', EntityType::class, [
+                "class" => Picture::class,
+                "choice_label" => 'name'
             ])
             ->add('venue', EntityType::class, [
                 "class" => Venue::class,

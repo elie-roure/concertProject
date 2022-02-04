@@ -31,6 +31,13 @@ class PictureController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $picture = $form->getData();
+
+            $image = $picture->getUrl();
+            $type = pathinfo($image, PATHINFO_EXTENSION);
+            $data = file_get_contents($image);
+            $dataUri = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            $picture->setUrl($dataUri);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($picture);
             $entityManager->flush();

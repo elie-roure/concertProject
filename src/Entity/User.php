@@ -92,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
+        return explode($roles, ',');
         return array_unique($roles);
     }
 
@@ -135,7 +135,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+         //$this->plainPassword = null;
+        //$this->password = null;
     }
 
     public function getFirstName(): ?string

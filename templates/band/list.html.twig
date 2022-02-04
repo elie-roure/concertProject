@@ -36,7 +36,12 @@
 				<div class="card">
 					<div class="row">
 						<div class="col-4">
-							<img class="image" src="/concertProject/public/images/index.jpeg">
+							{% if band.picture is null %}
+								<img class="image" src="/concertProject/public/images/index.jpeg">
+							{% endif %}
+							{% if band.picture is not null %}
+								<img class="image" src="{{ band.picture.url }}">
+							{% endif %}
 						</div>
 						<div class="col-8 nom">
 							<a href="{{path('band_show', {id : band.id })}}">{{band.name}}</a>

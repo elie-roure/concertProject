@@ -17,12 +17,20 @@
                 <div class="card">
                     <div class="row">
                         <div class="col-4">
-                            <img class="image" src="/concertProject/public/images/index.jpeg">
+                            {% if concert.picture is null %}
+                                <img class="image" src="/concertProject/public/images/index.jpeg">
+                            {% endif %}
+                            {% if concert.picture is not null %}
+                                <img class="image" src="{{ concert.picture.url }}">
+                            {% endif %}
                         </div>
                         <div class="col-8 nom">
-                            <a href="{{path('concert_show', {id : concert.id })}}">{{concert.name}}</a>
+                            <div class="row"><a href="{{path('concert_show', {id : concert.id })}}">{{concert.name}}</a></div>
+                            <div class="row"><p>{{concert.date|date("m/d/Y")}}</p></div>
+
                         </div>
                     </div>
+
                 </div>
             {% endfor %}
         </div>
