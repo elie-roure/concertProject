@@ -18,7 +18,6 @@ class ArtistController extends AbstractController
     public function list(ManagerRegistry $registry): Response
     {
         return $this->render('artist/list.html.twig', [
-            'controller_name' => 'ArtistController',
             'artists' => $registry->getRepository(Artist::class)->findAll(),
         ]);
     }
@@ -29,7 +28,6 @@ class ArtistController extends AbstractController
     public function show(ManagerRegistry $registry, int $id): Response
     {
         return $this->render('artist/show.html.twig', [
-            'controller_name' => 'ArtistController',
             'artist' => $registry->getRepository(Artist::class)->find($id),
         ]);
     }
@@ -38,9 +36,9 @@ class ArtistController extends AbstractController
      */
     public function success(ManagerRegistry $registry): Response
     {
-        return $this->render('artist/success.html.twig', [
-            'controller_name' => 'ArtistController',
+        return $this->render('artist/list.html.twig', [
             'artists' => $registry->getRepository(Artist::class)->findAll(),
+            'enregistrement' =>true,
         ]);
     }
     /**

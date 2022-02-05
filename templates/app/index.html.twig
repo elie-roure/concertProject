@@ -9,7 +9,7 @@
 </style>
 
     <div class="content">
-        <h1>Nos concerts a venir :  ✅</h1>
+        <h1>Nos concerts a venir : </h1>
 
         <div class="grille">
             {% for concert in concerts %}
@@ -24,9 +24,12 @@
                             {% endif %}
                         </div>
                         <div class="col-8 nom">
-                            <a href="{{path('concert_show', {id : concert.id })}}">{{concert.name}}</a>
+                            <div class="row"><a href="{{path('concert_show', {id : concert.id })}}">{{concert.name}}</a></div>
+                            <div class="row"><p>{{concert.date|date("m/d/Y")}}</p></div>
+
                         </div>
                     </div>
+
                 </div>
             {% endfor %}
         </div>

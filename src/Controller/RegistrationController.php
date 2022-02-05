@@ -37,10 +37,13 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $user->setRoles(array('ROLE_USER'));
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
+/*
+            return $this->redirectToRoute("band_list");
+*/
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,

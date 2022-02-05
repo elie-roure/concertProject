@@ -13,22 +13,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConcertController extends AbstractController
 {
     /**
-     * @Route("/concert", name="concert")
-     */
-    public function index(): Response
-    {
-        return $this->render('concert/index.html.twig', [
-            'controller_name' => 'ConcertController',
-        ]);
-    }
-    /**
      * @Route("/admin/concert/success", name="concert_success")
      */
     public function success(ManagerRegistry $registry): Response
     {
-        return $this->render('concert/success.html.twig', [
-            'controller_name' => 'ConcertController',
+        return $this->render('concert/list.html.twig', [
             'concerts' => $registry->getRepository(Concert::class)->findAll(),
+            'title' => "Nos concerts",
+            'enregistrement' =>true,
         ]);
     }
     /**
@@ -37,8 +29,28 @@ class ConcertController extends AbstractController
     public function list(ManagerRegistry $registry): Response
     {
         return $this->render('concert/list.html.twig', [
-            'controller_name' => 'ConcertController',
             'concerts' => $registry->getRepository(Concert::class)->findAll(),
+            'title' => "Nos concerts",
+        ]);
+    }
+    /**
+     * @Route("/concerts/future", name="concertFuture_list")
+     */
+    public function listFuture(ManagerRegistry $registry): Response
+    {
+        return $this->render('concert/list.html.twig', [
+            'concerts' => $registry->getRepository(Concert::class)->findFuture(),
+            'title' => "Nos future concerts",
+        ]);
+    }
+    /**
+     * @Route("/concert/past", name="concertPast_list")
+     */
+    public function listPast(ManagerRegistry $registry): Response
+    {
+        return $this->render('concert/list.html.twig', [
+            'concerts' => $registry->getRepository(Concert::class)->findPast(),
+            'title' => "Nos précédent concerts",
         ]);
     }
     /**
@@ -47,7 +59,6 @@ class ConcertController extends AbstractController
     public function show(ManagerRegistry $registry, int $id): Response
     {
         return $this->render('concert/show.html.twig', [
-            'controller_name' => 'ConcertController',
             'concert' => $registry->getRepository(Concert::class)->find($id),
         ]);
     }

@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Band;
 use App\Entity\Concert;
 use App\Entity\Picture;
+use App\Entity\Place;
 use App\Entity\Venue;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -20,29 +21,35 @@ class ConcertType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('capacity', NumberType::class)
-            ->add('date', DateType::class,[
-                "widget" => 'choice',
-                "format" => 'dd / MM/ yyyy'
-            ])
             ->add('name', TextType::class,[
                 "label"=> "Nom du concert : "
             ])
-            ->add('picture', EntityType::class, [
-                "class" => Picture::class,
-                "choice_label" => 'name'
+            ->add('capacity', NumberType::class,[
+                "label"=> "Nombre de place disponible : "
             ])
-            ->add('venue', EntityType::class, [
-                "class" => Venue::class,
-                "choice_label" => 'name'
+            ->add('date', DateType::class,[
+                "label"=> "Date du concert : ",
+                "widget" => 'choice',
+                "format" => 'ddMMMMyyyy'
             ])
             ->add('bands', EntityType::class, [
+                "label"=> "Groupes représentés : ",
                 "class" => Band::class,
                 "multiple" => true,
                 "choice_label" => 'name'
             ])
+            ->add('venue', EntityType::class, [
+                "label"=> "Salle de représentation : ",
+                "class" => Venue::class,
+                "choice_label" => 'name',
+                'group_by' => 'place.name',
+            ])
+            ->add('picture', EntityType::class, [
+                "label" => "Image",
+                "class" => Picture::class,
+                "choice_label" => 'name'
+            ])
             ->add('save', SubmitType::class, [
-                'attr' => ['class' => 'save'],
                 "label" => 'Enregister le concert'
             ])
         ;

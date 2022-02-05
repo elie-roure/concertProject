@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Concert;
 use App\Entity\Picture;
 use App\Form\PictureType;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +20,16 @@ class PictureController extends AbstractController
     {
         return $this->render('picture/index.html.twig', [
             'controller_name' => 'PictureController',
+        ]);
+    }
+    /**
+     * @Route("/admin/picture/success", name="picture_success")
+     */
+    public function success(ManagerRegistry $registry): Response
+    {
+        return $this->render('app/index.html.twig', [
+            'concerts' => $registry->getRepository(Concert::class)->findFuture(),
+            'enregistrement' =>true,
         ]);
     }
     /**

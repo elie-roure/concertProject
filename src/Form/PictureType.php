@@ -19,7 +19,8 @@ class PictureType extends AbstractType
     {
         $builder
             ->add('name', TextType::class,[
-                "label"=> "Nom de l'image : "
+                "label"=> "Nom de l'image : ",
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('url', FileType::class,[
                 "label"=> "Upload de l'image : ",/*
@@ -31,19 +32,8 @@ class PictureType extends AbstractType
                     ])
                 ],*/
             ])
-            ->add('updated_at', DateType::class,[
-                "label"=> "Upload de l'image : ",/*
-                "required" => true,
-                'constraints' => [
-                    new Image([
-                        'maxSize' => '5000k',
-                        'mimeTypesMessage' => 'Please upload a valid Iamge document',
-                    ])
-                ],*/
-            ])
             ->add('save', SubmitType::class, [
-                'attr' => ['class' => 'save'],
-                "label" => 'Enregister l\'artiste'
+                "label" => 'Enregister l\'image'
             ])
         ;
     }

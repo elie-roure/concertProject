@@ -23,17 +23,12 @@ class ArtistType extends AbstractType
             ->add('scene_name', TextType::class,[
                 "label"=> "Nom de scene de l'artiste : "
             ])
-            ->add('picture', EntityType::class,[
-                "class" => Picture::class,
-                "label" => "Img : ",
-                "choice_label" => 'name'
-            ])
             ->add('picture', EntityType::class, [
+                "label" => "Image",
                 "class" => Picture::class,
                 "choice_label" => 'name'
             ])
             ->add('save', SubmitType::class, [
-                'attr' => ['class' => 'save'],
                 "label" => 'Enregister l\'artiste'
             ])
         ;

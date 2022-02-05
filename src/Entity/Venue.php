@@ -115,4 +115,5 @@ class Venue
 
         return $this;
     }
+
 }

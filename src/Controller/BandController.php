@@ -27,9 +27,9 @@ class BandController extends AbstractController
      */
     public function success(ManagerRegistry $registry): Response
     {
-        return $this->render('band/success.html.twig', [
-            'controller_name' => 'BandController',
+        return $this->render('band/list.html.twig', [
             'bands' => $registry->getRepository(Band::class)->findAll(),
+            'enregistrement' =>true,
         ]);
     }
     /**

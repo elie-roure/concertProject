@@ -24,18 +24,19 @@ class BandType extends AbstractType
                 "label"=> "Style du groupe : "
             ])
             ->add('artists', EntityType::class, [
+                "label" => "Artistes du groupe :",
                 "class" => Artist::class,
                 "multiple" => true,
                 "choice_label" => 'name'
             ])
             ->add('picture', EntityType::class, [
+                "label" => "Image",
                 "class" => Picture::class,
                 "choice_label" => 'name'
             ])
 
 
             ->add('save', SubmitType::class, [
-                'attr' => ['class' => 'save'],
                 "label" => 'Enregister le groupe'
             ])
         ;

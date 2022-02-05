@@ -31,6 +31,17 @@ class ConcertRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    // /**
+    //  * @return Concert[] Returns an array of Concert objects
+    //  */
+    public function findPast(){
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.date < :val')
+            ->setParameter('val', date("Y-m-d H:i:s"))
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
     public function findFutureWithId($value){
 
         /*dump($this->createQueryBuilder('c')
@@ -54,16 +65,6 @@ class ConcertRepository extends ServiceEntityRepository
 
         // returns an array of arrays (i.e. a raw data set)
         return $resultSet->fetchAllAssociative();
-
-        /*return $this->createQueryBuilder('c')
-            ->join("App\Entity\Band ","b", "c.id = b.concert_id")
-            ->andWhere('c.date > :val')
-            ->andWhere('b.id = :id')
-            ->setParameter('val', date("Y-m-d H:i:s"))
-            ->setParameter('id', $value)
-            ->orderBy('c.id', 'ASC')
-            ->getQuery()
-            ->getResult();*/
     }
     public function findPastWithId($value){
         $conn = $this->getEntityManager()->getConnection();
