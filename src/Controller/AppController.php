@@ -20,4 +20,12 @@ class AppController extends AbstractController
             'concerts' => $registry->getRepository(Concert::class)->findFuture(),
         ]);
     }
+    /**
+     * @Route("/forbidden", name="forbidden")
+     */
+    public function forbidden(ManagerRegistry $registry): Response
+    {
+        return $this->render('app/403.html.twig', [
+        ]);
+    }
 }

@@ -6,6 +6,7 @@
 
     <div class="row">
         <div class="col-2">
+            {% if is_granted("ROLE_ADMIN") %}
             <ul class="nav flex-column sidebar">
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('band_update', {id : band.id })}}">Modifier</a>
@@ -19,6 +20,7 @@
                     </a>
                 </li>
             </ul>
+            {% endif %}
         </div>
         <div class="col-8">
             <div class="content">
@@ -76,7 +78,6 @@
                             <div class="accordion-body">
                                 <div class="grille">
                                     {% for concert in futureConcerts %}
-                                        {{ dump(concert)}}
 
                                         <div class="card">
                                             <div class="row">

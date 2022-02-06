@@ -1,48 +1,133 @@
 {% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
 
-    <a class="navbar-brand" href="http://localhost/concertProject/public/">concertProject</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <div class="concertProject">
+        <a class="navbar-brand" href="http://localhost/concertProject/public/">concertProject</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        {% if app.user %}
+          <div class="hello">
+            <p>Bonjour {{ app.user.firstName }}</p>
+          </div>
+        {% endif %}
+      </div>
 
-    <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{path('band_list')}}">Groupes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{path('artist_list')}}">Artistes</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Concerts</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{path('concert_list')}}">Tous les Concerts</a></li>
-            <li><a class="dropdown-item" href="{{path('concertFuture_list')}}">Concert Future</a></li>
-            <li><a class="dropdown-item" href="{{path('concertPast_list')}}">Concert Passé</a></li>
+      <div class="collapse navbar-collapse navMenu" id="navbarScroll">
+        <div class="menu">
+          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{path('band_list')}}">Groupes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{{path('artist_list')}}">Artistes</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Concerts</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{path('concert_list')}}">Tous les Concerts</a></li>
+                <li><a class="dropdown-item" href="{{path('concertFuture_list')}}">Concert Future</a></li>
+                <li><a class="dropdown-item" href="{{path('concertPast_list')}}">Concert Passé</a></li>
+              </ul>
+            </li>
+
+
           </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Administrateur</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{path('concert_create')}}">Ajouter concert</a></li>
-            <li><a class="dropdown-item" href="{{path('band_create')}}">Ajouter groupe</a></li>
-            <li><a class="dropdown-item" href="{{path('artist_create')}}">Ajouter artiste</a></li>
-            <li><a class="dropdown-item" href="{{path('picture_create')}}">Ajouter image</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Mon compte</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{path('app_login')}}">Se connecter</a></li>
-            <li><a class="dropdown-item" href="{{path('app_logout')}}">Se deconnecter</a></li>
-            <li><a class="dropdown-item" href="{{path('app_register')}}">S'enregistrer</a></li>
-            <li><a class="dropdown-item" href="{{path('app_register')}}">Modifier son compte</a></li>
-          </ul>
-        </li>
-      </ul>
+        </div>
+
+      </div>
+      <div class="compte">
+
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+              {% if is_granted("ROLE_ADMIN") %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Administration</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{path('concert_create')}}">Ajouter concert</a></li>
+                    <li><a class="dropdown-item" href="{{path('band_create')}}">Ajouter groupe</a></li>
+                    <li><a class="dropdown-item" href="{{path('artist_create')}}">Ajouter artiste</a></li>
+                    <li><a class="dropdown-item" href="{{path('picture_create')}}">Ajouter image</a></li>
+                    <li><a class="dropdown-item" href="{{path('user_list')}}">Liste user</a></li>
+                  </ul>
+                </li>
+              {% endif %}
+              {% if app.user %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{path('user_show', {id : app.user.id })}}">Mon Compte
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{path('app_logout')}}">Se deconnecter
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                      <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                    </svg>
+                  </a>
+                </li>
+              {% endif %}
+              {% if app.user is null %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{path('app_register')}}">S'enregistrer
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16">
+                      <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                      <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                    </svg>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{path('app_login')}}">Se connecter
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
+                      <path fill-rule="evenodd" d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                    </svg>
+                  </a>
+                </li>
+              {% endif %}
+
+
+            </ul>
+
+        </div>
+
+
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+
+  <style>
+    navMenu{
+      justify-content: space-between;
+    }
+    .menu{
+      margin: auto;
+    }
+    .compte > div > ul{
+      justify-content: right;
+      width: 100%;
+    }
+    .compte{
+      display: inline-flex;
+      width: 33%;
+      flex-direction: row-reverse;
+    }
+    .concertProject{
+      width: 33%;
+      display: flex;
+    }
+    .admin{
+      margin-top: auto !important;
+      margin-bottom: auto !important;
+    }
+
+    .hello p, .hello{
+      margin-top: auto !important;
+      margin-bottom: auto !important;
+    }
+  </style>
 {% endblock %}

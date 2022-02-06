@@ -26,15 +26,12 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
     public function __construct(UrlGeneratorInterface $urlGenerator)
     {
         $this->urlGenerator = $urlGenerator;
-
-        dump($urlGenerator);
     }
 
     public function authenticate(Request $request): Passport
     {
-        dump($request);
         $email = $request->request->get('email', '');
-        dump($email);
+
         $request->getSession()->set(Security::LAST_USERNAME, $email);
         return new Passport(
             new UserBadge($email),
@@ -48,8 +45,6 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        echo "toto";
-        dump($token);
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
 
             return new RedirectResponse($targetPath);
@@ -61,7 +56,6 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
     protected function getLoginUrl(Request $request): string
     {
-        dump($request);
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
     }
 }
