@@ -15,7 +15,7 @@ class VenueFixture extends Fixture implements DependentFixtureInterface
     {
         // $product = new Product();
         // $manager->persist($product);
-        for ($i=0; $i < 7; $i++) {
+        for ($i=0; $i < 15; $i++) {
             $venue = new Venue();
 
             $name = self::piece[rand(0,4)];

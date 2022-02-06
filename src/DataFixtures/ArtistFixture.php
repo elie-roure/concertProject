@@ -17,7 +17,7 @@ class ArtistFixture extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
-        for ($i=0; $i < 20; $i++) {
+        for ($i=0; $i < 100; $i++) {
             $a1 = new Artist();
             $name = self::firstname[rand(0,5)] . " " . self::lastname[rand(0,5)];
             $a1->setName($name);

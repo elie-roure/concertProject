@@ -58,10 +58,15 @@
 					{% for band in concert.bands %}
 						<div class="card">
 							<div class="row">
-								<div class="col-4">
-									<img class="image" src="/concertProject/public/images/index.jpeg">
+								<div class="col-5">
+									{% if band.picture is null %}
+										<img class="imageShow" src="/concertProject/public/images/index.jpg">
+									{% endif %}
+									{% if band.picture is not null %}
+										<img class="imageShow" src="{{ band.picture.url }}">
+									{% endif %}
 								</div>
-								<div class="col-8 nom">
+								<div class="col-7 nom">
 									<a href="{{path('band_show', {id : band.id })}}">{{band.name}}</a>
 								</div>
 							</div>

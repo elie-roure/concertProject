@@ -16,7 +16,7 @@ class ConcertFixture extends Fixture implements DependentFixtureInterface
     {
         // $product = new Product();
         // $manager->persist($product);
-        for ($i=0; $i < 15; $i++) {
+        for ($i=0; $i < 100; $i++) {
             $concert = new Concert();
             $name = self::festival[rand(0,4)];
             $concert->setName($name);
@@ -25,11 +25,11 @@ class ConcertFixture extends Fixture implements DependentFixtureInterface
             $concert->setCapacity(rand(1000,5000));
 
             for ($j=0; $j < rand(1,5); $j++) {
-                $concert->addBand($this->getReference(BandFixture::BAND_REFERENCE . rand(0,9)));
+                $concert->addBand($this->getReference(BandFixture::BAND_REFERENCE . rand(0,49)));
             }
 
 
-            $concert->setVenue($this->getReference(VenueFixture::VENUE_REFERENCE .  rand(0,5)));
+            $concert->setVenue($this->getReference(VenueFixture::VENUE_REFERENCE .  rand(0,14)));
 
             $manager->persist($concert);
         }

@@ -19,13 +19,13 @@ class BandFixture extends Fixture implements DependentFixtureInterface
     {
         // $product = new Product();
         // $manager->persist($product);
-        for ($i=0; $i < 10; $i++) {
+        for ($i=0; $i < 50; $i++) {
             $b1 = new Band();
             $name = self::nom[rand(0,5)] . " " . self::adj[rand(0,5)];
             $b1->setName($name);
             $b1->setStyle(self::style[rand(0,5)]);
-            for ($j=0; $j < 3; $j++) {
-                $b1->addArtist($this->getReference(ArtistFixture::ARTIST_REFERENCE . rand(0,19)));
+            for ($j=0; $j < rand(0,5); $j++) {
+                $b1->addArtist($this->getReference(ArtistFixture::ARTIST_REFERENCE . rand(0,99)));
             }
             $this->addReference(self::BAND_REFERENCE . $i, $b1);
 

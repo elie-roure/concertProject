@@ -11,21 +11,16 @@
         {% for artist in artists %}
             <div class="card">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-5">
 
                         {% if artist.picture is null %}
-                            <img class="image" src="/concertProject/public/images/index.jpeg">
+                            <img class="image" src="/concertProject/public/images/index.jpg">
                         {% endif %}
                         {% if artist.picture is not null %}
                             <img class="image" src="{{ artist.picture.url }}">
                         {% endif %}
-
-                        {% if artist.picture != null %}
-                            {{  artist.picture.getUrl()}}
-                            <img src="{{  artist.picture.getUrl()}}">
-                        {% endif %}
                     </div>
-                    <div class="col-8 nom">
+                    <div class="col-7 nom">
                         <a href="{{path('artist_show', {id : artist.id })}}">{{artist.name}}</a>
                         <p>({{artist.getSceneName()}})</p>
                     </div>

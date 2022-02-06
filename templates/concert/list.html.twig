@@ -12,15 +12,15 @@
             {% for concert in concerts %}
                 <div class="card">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-5">
                             {% if concert.picture is null %}
-                                <img class="image" src="/concertProject/public/images/index.jpeg">
+                                <img class="image" src="/concertProject/public/images/index.jpg">
                             {% endif %}
                             {% if concert.picture is not null %}
                                 <img class="image" src="{{ concert.picture.url }}">
                             {% endif %}
                         </div>
-                        <div class="col-8 nom">
+                        <div class="col-7 nom">
                             <div class="row"><a href="{{path('concert_show', {id : concert.id })}}">{{concert.name}}</a></div>
                             <div class="row"><p>{{concert.date|date("m/d/Y")}}</p></div>
 

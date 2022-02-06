@@ -30,11 +30,17 @@
                     {% for artist in band.artists %}
                         <div class="card">
                             <div class="row">
-                                <div class="col-4">
-                                    <img class="image" src="/concertProject/public/images/index.jpeg">
+                                <div class="col-5">
+                                    {% if artist.picture is null %}
+                                        <img class="imageShow" src="/concertProject/public/images/index.jpg">
+                                    {% endif %}
+                                    {% if artist.picture is not null %}
+                                        <img class="imageShow" src="{{ artist.picture.url }}">
+                                    {% endif %}
                                 </div>
-                                <div class="col-8 nom">
+                                <div class="col-7 nom">
                                     <a href="{{path('artist_show', {id : artist.id })}}">{{artist.name}}</a>
+                                    <p>({{artist.getSceneName()}})</p>
                                 </div>
                             </div>
                         </div>
@@ -53,10 +59,10 @@
                                     {% for concert in futureConcerts %}
                                         <div class="card">
                                             <div class="row">
-                                                <div class="col-4">
-                                                    <img class="image" src="/concertProject/public/images/index.jpeg">
+                                                <div class="col-5">
+                                                    <img class="imageShow" src="/concertProject/public/images/index.jpg">
                                                 </div>
-                                                <div class="col-8 nom">
+                                                <div class="col-7 nom">
                                                     <div class="row"><a href="{{path('concert_show', {id : concert.id })}}">{{concert.name}}</a></div>
                                                     <div class="row"><p>{{concert.date|date("m/d/Y")}}</p></div>
 
@@ -77,14 +83,14 @@
                         <div id="pastConcert" class="accordion-collapse collapse show" aria-labelledby="headingOne" >
                             <div class="accordion-body">
                                 <div class="grille">
-                                    {% for concert in futureConcerts %}
+                                    {% for concert in pastConcerts %}
 
                                         <div class="card">
                                             <div class="row">
-                                                <div class="col-4">
-                                                    <img class="image" src="/concertProject/public/images/index.jpeg">
+                                                <div class="col-5">
+                                                    <img class="imageShow" src="/concertProject/public/images/index.jpg">
                                                 </div>
-                                                <div class="col-8 nom">
+                                                <div class="col-7 nom">
                                                     <div class="row"><a href="{{path('concert_show', {id : concert.id })}}">{{concert.name}}</a></div>
                                                     <div class="row"><p>{{concert.date|date("m/d/Y")}}</p></div>
 
