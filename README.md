@@ -8,4 +8,7 @@ Projet en symfony sur un site de gestion de concert
 « Bonjour [nomUserLogué] »
   - Upload d’images
 
+
+### Diagramme de class :
+
 ![diagram](./concertDiagram.png)
